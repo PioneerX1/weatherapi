@@ -18,10 +18,7 @@ android {
         }
     }
     buildTypes.each {
-        it.buildConfigField 'String', 'OPENWEATHER_CONSUMER_KEY', OpenWeatherConsumerKey
-        it.buildConfigField 'String', 'OPENWEATHER_CONSUMER_SECRET', OpenWeatherConsumerSecret
-        it.buildConfigField 'String', 'OPEANWEATHER_TOKEN', OpenWeatherToken
-        it.buildConfigField 'String', 'OPENWEATHER_TOKEN_SECRET', OpenWeatherTokenSecret
+        it.buildConfigField 'String', 'API_KEY', OpenWeatherAPIKey
     }
 }
 
