@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.pioneerx1.weatherapi.models.DailyForecast;
 import com.pioneerx1.weatherapi.services.OpenWeatherService;
 import com.pioneerx1.weatherapi.R;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -17,11 +19,13 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class TodaysForecastActivity extends AppCompatActivity {
+public class ResultsActivity extends AppCompatActivity {
 
-    public static final String TAG = TodaysForecastActivity.class.getSimpleName();
+    public static final String TAG = ResultsActivity.class.getSimpleName();
 
     @Bind(R.id.textViewLocation2) TextView mTextViewLocation2;
+
+    public ArrayList<DailyForecast> mForecasts = new ArrayList<>();
 
 
     private void getWeather(String location) {
@@ -35,12 +39,15 @@ public class TodaysForecastActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    String jsonData = response.body().string();
-                    Log.v(TAG, jsonData);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    String jsonData = response.body().string();
+                    if (response.isSuccessful()) {
+//                        Log.v(TAG, jsonData);
+                        mForecasts = openWeatherService.processResults(response);
+                    }
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
             }
 
         });

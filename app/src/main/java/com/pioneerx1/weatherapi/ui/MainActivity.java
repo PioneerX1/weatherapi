@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String location = mEditTextLocation.getText().toString();
-                Intent intent = new Intent(MainActivity.this, TodaysForecastActivity.class);
+                Intent intent = new Intent(MainActivity.this, ResultsActivity.class);
                 intent.putExtra("location", location);
                 startActivity(intent);
             }
