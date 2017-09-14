@@ -49,10 +49,10 @@ public class OpenWeatherService {
                     String conditions = weatherDetailsJSON.getJSONObject(0).getString("description");
 
                     // test to see if JSON data can be pulled correctly
-                    Log.v(TAG, "THIS IS THE OBJECT!!!  date: " + date + " lowTemp: " + lowTemp + " highTemp: " + highTemp + " Conditions: " + conditions);
+//                    Log.v(TAG, "THIS IS THE OBJECT!!!  date: " + date + " lowTemp: " + lowTemp + " highTemp: " + highTemp + " Conditions: " + conditions);
 
                     // create new daily forecast object, add it to ArrayList of daily forecasts
-                    DailyForecast newForecast = new DailyForecast("seattle", "us", date, lowTemp, highTemp, humidity, conditions);
+                    DailyForecast newForecast = new DailyForecast(city, country, date, lowTemp, highTemp, humidity, conditions);
                     forecasts.add(newForecast);
                 }
             }
@@ -61,6 +61,17 @@ public class OpenWeatherService {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+        Log.v(TAG, "LOCATION: " + forecasts.get(0).getCity() + ", " + forecasts.get(0).getCountry());
+        Log.v(TAG, "--------------");
+
+        for (int k = 0; k < forecasts.size(); k++) {
+            Log.v(TAG, "DATE: " + forecasts.get(k).getDate());
+            Log.v(TAG, "LOW TEMP: " + forecasts.get(k).getLowTemp());
+            Log.v(TAG, "HIGH TEMP: " + forecasts.get(k).getHighTemp());
+            Log.v(TAG, "HUMIDITY: " + forecasts.get(k).getHumidity() + "%");
+            Log.v(TAG, "CONDITIONS: " + forecasts.get(k).getConditions());
+            Log.v(TAG, "----");
         }
         return forecasts;
     }
