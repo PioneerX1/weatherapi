@@ -1,13 +1,13 @@
-package com.pioneerx1.weatherapi;
+package com.pioneerx1.weatherapi.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+
+import com.pioneerx1.weatherapi.services.OpenWeatherService;
+import com.pioneerx1.weatherapi.R;
 
 import java.io.IOException;
 
@@ -17,9 +17,9 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class TodaysForecast extends AppCompatActivity {
+public class TodaysForecastActivity extends AppCompatActivity {
 
-    public static final String TAG = TodaysForecast.class.getSimpleName();
+    public static final String TAG = TodaysForecastActivity.class.getSimpleName();
 
     @Bind(R.id.textViewLocation2) TextView mTextViewLocation2;
 
