@@ -23,8 +23,6 @@ public class TodaysForecast extends AppCompatActivity {
 
     @Bind(R.id.textViewLocation2) TextView mTextViewLocation2;
 
-    Intent oldIntent = getIntent();
-    final String location = oldIntent.getStringExtra("location");
 
     private void getWeather(String location) {
         final OpenWeatherService openWeatherService = new OpenWeatherService();
@@ -54,6 +52,9 @@ public class TodaysForecast extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todays_forecast);
         ButterKnife.bind(this);
+
+        Intent oldIntent = getIntent();
+        final String location = oldIntent.getStringExtra("location");
 
         mTextViewLocation2.setText("You entered " + location);
         getWeather(location);

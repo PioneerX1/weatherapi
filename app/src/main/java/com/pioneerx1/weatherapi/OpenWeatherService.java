@@ -1,5 +1,7 @@
 package com.pioneerx1.weatherapi;
 
+import android.util.Log;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
@@ -10,9 +12,10 @@ import se.akerfeldt.okhttp.signpost.SigningInterceptor;
 
 public class OpenWeatherService {
 
+    public static final String TAG = OpenWeatherService.class.getSimpleName();
+
     public static void findWeather(String location, Callback callback) {
-        //OkHttpOAuthConsumer consumer = new OkHttpOAuthConsumer(Constants.YELP_CONSUMER_KEY, Constants.YELP_CONSUMER_SECRET);
-        //consumer.setTokenWithSecret(Constants.YELP_TOKEN, Constants.YELP_TOKEN_SECRET);
+
 
         OkHttpClient client = new OkHttpClient.Builder()
                 //.addInterceptor(new SigningInterceptor(consumer))
@@ -20,7 +23,14 @@ public class OpenWeatherService {
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.API_BASE_URL).newBuilder();
         urlBuilder.addQueryParameter(Constants.LOCATION_QUERY_PARAMETER, location);
+        urlBuilder.addQueryParameter(Constants.NUMBER_OF_DAYS_PARAMETER, "17");
+
+        urlBuilder.addQueryParameter(Constants.API_KEY_QUERY_PARAMETER, Constants.API_KEY);
         String url = urlBuilder.build().toString();
+
+        Log.v(TAG, Constants.API_KEY);
+        Log.v(TAG, location);
+        Log.v(TAG, url);
 
         Request request= new Request.Builder()
                 .url(url)
