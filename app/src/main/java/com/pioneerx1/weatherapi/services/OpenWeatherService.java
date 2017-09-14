@@ -10,7 +10,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -41,18 +44,24 @@ public class OpenWeatherService {
                 JSONArray forecastsJSON = openWeatherJSON.getJSONArray("list");
                 for (int i = 0; i < forecastsJSON.length(); i++) {
                     JSONObject forecastJSON = forecastsJSON.getJSONObject(i);
+
+                    // grab Unix date string, convert to Long, convert to normal format string
                     String date = forecastJSON.getString("dt");
+                    long unixDate = Long.parseLong(date);
+                    Date newDate = new Date(unixDate * 1000);  // convert seconds to milliseconds
+                    SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MM/dd/yyyy");
+                    sdf.setTimeZone(TimeZone.getDefault());
+                    String formattedDate = sdf.format(newDate);
+
+                    // other member variables of forecast object
                     String lowTemp = forecastJSON.getJSONObject("temp").getString("min");
                     String highTemp = forecastJSON.getJSONObject("temp").getString("max");
                     String humidity = forecastJSON.getString("humidity");
                     JSONArray weatherDetailsJSON = forecastJSON.getJSONArray("weather");
                     String conditions = weatherDetailsJSON.getJSONObject(0).getString("description");
 
-                    // test to see if JSON data can be pulled correctly
-//                    Log.v(TAG, "THIS IS THE OBJECT!!!  date: " + date + " lowTemp: " + lowTemp + " highTemp: " + highTemp + " Conditions: " + conditions);
-
                     // create new daily forecast object, add it to ArrayList of daily forecasts
-                    DailyForecast newForecast = new DailyForecast(city, country, date, lowTemp, highTemp, humidity, conditions);
+                    DailyForecast newForecast = new DailyForecast(city, country, formattedDate, lowTemp, highTemp, humidity, conditions);
                     forecasts.add(newForecast);
                 }
             }
