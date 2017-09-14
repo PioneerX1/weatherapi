@@ -8,4 +8,6 @@ public class Constants {
     public static final String API_KEY_QUERY_PARAMETER = "appid";
     // public static final String API_KEY_QUERY_PARAMETER = "appid";
     // connect like: API_BASE_URL + YOUR_QUERY_PARAMETER + API_KEY
+    // working call in Postman:
+    // api.openweathermap.org/data/2.5/forecast/daily?q=new york city,US&cnt=17&appid=c109379d321012346a8b0e6bdea99879
 }
